@@ -19,10 +19,11 @@
     "vite": "^6.3.1"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-  },
+  "dev": "vite",
+  "build": "vite build",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
+},
+
   "homepage": "https://jjsuarez0208.github.io/Naruto"
 }
