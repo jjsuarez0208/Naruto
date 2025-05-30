@@ -1,23 +1,82 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <link rel="manifest" href="manifest.json">
-     <meta name="theme-color" content="#27445D" />
-     <script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js")
-      .then(reg => console.log("Service Worker registrado 👍"))
-      .catch(err => console.log("Error al registrar SW:", err));
-  }
-</script>
+<!DOCTYPE html>
+<html lang="es">
 
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NarutoAPI</title>
+
+  <!-- Tema Naruto -->
+  <meta name="theme-color" content="#27445D" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.json">
+
+
+  <!-- OneSignal Web Push -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function (OneSignal) {
+      await OneSignal.init({
+        appId: "42b0fd81-a018-4dcf-aeca-0c6486e82524",
+      });
+    });
+  </script>
+</head>
+
+<body style="background-color:#f5f5f5; font-family: sans-serif;">
+  <button id="btn-instalar" style="display:none; margin: 16px; padding: 12px 20px; font-size: 16px;">
+    Instalar Naruto App
+  </button>
+
+  <main id="app">
+    <!-- Aquí va tu contenido dinámico -->
+  </main>
+
+  <script>
+    // Registro del service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker registrado ✅'))
+        .catch(error => console.log('Error al registrar SW:', error));
+    }
+
+    // Instalación PWA
+    let deferredPrompt;
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault(); // Previene instalación automática
+      deferredPrompt = e;
+
+      const btn = document.getElementById("btn-instalar");
+      if (btn) btn.style.display = "block";
+    });
+
+    document.getElementById("btn-instalar").addEventListener("click", async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log("Resultado de instalación:", outcome);
+
+        deferredPrompt = null;
+        document.getElementById("btn-instalar").style.display = "none";
+      }
+    });
+
+    // Compatibilidad iOS
+    function esIOS() {
+      return /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    }
+
+    if (esIOS()) {
+      const mensaje = document.createElement("div");
+      mensaje.innerHTML = `
+        <p style="padding: 16px; background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404;">
+          En iOS, toca <strong>Compartir</strong> y luego "Agregar a pantalla de inicio" para instalar.
+        </p>`;
+      document.getElementById("btn-instalar").replaceWith(mensaje);
+    }
+  </script>
+</body>
+
 </html>
