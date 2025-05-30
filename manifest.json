@@ -1,0 +1,21 @@
+{
+  "name": "Naruto App",
+  "short_name": "Naruto",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#27445D",
+  "theme_color": "#27445D",
+  "description": "Explora personajes de Naruto en esta PWA",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
