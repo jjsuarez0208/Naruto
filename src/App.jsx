@@ -14,7 +14,6 @@ function App() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-
     const storedFavorites = localStorage.getItem('narutoFavorites');
     if (storedFavorites) {
       setFavorites(JSON.parse(storedFavorites));
