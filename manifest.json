@@ -1,14 +1,13 @@
 {
-  "name": "NarutoAPI",
+  "name": "NarutoApp",
   "short_name": "Naruto",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#27445D",
   "theme_color": "#27445D",
-  "description": "Explora personajes del mundo de Naruto.",
   "icons": [
     {
-      "src": "icons/ninja.png",
+      "src": "icons/Naruto_logo.svg.png",
       "sizes": "192x192",
       "type": "image/png"
     },
